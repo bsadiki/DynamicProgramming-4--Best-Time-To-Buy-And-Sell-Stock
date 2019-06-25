@@ -9,10 +9,14 @@ public class Solution {
     }
 
     private static int maximumProfit(int[] values, int n) {
-        if (n == 0) return 0;
-        int maxProfit = maximumProfit(values, n - 1);
-        for (int i = 0; i < n; i++) {
-            maxProfit = Math.max(maxProfit, values[n - 1] - values[i]);
+        if(n == 0 || n == 1)
+            return 0;
+        int[] minIntoN = new int[n];
+        minIntoN[0] = values[0];
+        int maxProfit = 0;
+        for (int i = 1; i < n; i++) {
+            minIntoN[i] = Math.min(minIntoN[i - 1], values[i]);
+            maxProfit = Math.max(maxProfit, values[i] - minIntoN[i]);
         }
         return maxProfit;
     }
